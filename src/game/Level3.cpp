@@ -5348,10 +5348,16 @@ bool ChatHandler::HandleBanHelper(BanMode mode, char* args)
     switch(sWorld.BanAccount(mode, nameOrIP, duration_secs, reason,m_session ? m_session->GetPlayerName() : ""))
     {
         case BAN_SUCCESS:
-            if (duration_secs > 0)
-                PSendSysMessage(LANG_BAN_YOUBANNED, nameOrIP.c_str(), secsToTimeString(duration_secs,true).c_str(), reason);
+            if(duration_secs > 0)
+            {
+                PSendSysMessage(LANG_BAN_YOUBANNED,nameOrIP.c_str(),secsToTimeString(TimeStringToSecs(duration),true).c_str(),reason);
+                sWorld.SendWorldText(LANG_BAN_WORLD_ANNOUNCE,nameOrIP.c_str(),m_session ? m_session->GetPlayerName() : "",secsToTimeString(TimeStringToSecs(duration),true).c_str(),reason);
+            }
             else
-                PSendSysMessage(LANG_BAN_YOUPERMBANNED, nameOrIP.c_str(), reason);
+            {
+               PSendSysMessage(LANG_BAN_YOUPERMBANNED,nameOrIP.c_str(),reason);
+               sWorld.SendWorldText(LANG_PERMBAN_WORLD_ANNOUNCE,nameOrIP.c_str(),m_session ? m_session->GetPlayerName() : "",reason);
+            }
             break;
         case BAN_SYNTAX_ERROR:
             return false;

@@ -946,6 +946,8 @@ enum MangosStrings
     LANG_SPELL_DISABLED                 = 11003,
     LANG_SPELL_ENABLED                  = 11004,
     LANG_PINFO_EMAIL                    = 11005,
+    LANG_BAN_WORLD_ANNOUNCE             = 11006,
+    LANG_PERMBAN_WORLD_ANNOUNCE         = 11007,
 
     // NOT RESERVED IDS                   12000-1999999999
     // `db_script_string` table index     2000000000-2000009999 (MIN_DB_SCRIPT_STRING_ID-MAX_DB_SCRIPT_STRING_ID)
