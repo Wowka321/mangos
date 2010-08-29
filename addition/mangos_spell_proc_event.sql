@@ -26,3 +26,9 @@ INSERT INTO `spell_proc_event` VALUES ('71892', '0', '0', '0', '0', '0', '0', '0
 /* Item - Paladin T10 Holy 2P Bonus */
 DELETE FROM `spell_proc_event` WHERE `entry` = 70755;
 INSERT INTO `spell_proc_event` VALUES ('70755', '2', '10', '0', '0', '0', '0x80004000', '0x80004000', '0x80004000', '0', '0', '0', '16384', '0', '0', '0', '0');
+
+/* Fingers of Frost */
+DELETE FROM `spell_proc_event` WHERE `entry` IN (44543,44545);
+INSERT INTO `spell_proc_event` VALUES
+(44543,0,3,33555104, 33555104, 33555104,0,0,0,0,0,0,0,0,0,7,0),
+(44545,0,3,33555104, 33555104, 33555104,0,0,0,0,0,0,0,0,0,15,0);
