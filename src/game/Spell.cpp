@@ -16,7 +16,7 @@
  * Foundation, Inc., 59 Temple Place, Suite 330, Boston, MA  02111-1307  USA
  */
 
-#include "Common.h"
+#include "Spell.h"
 #include "Database/DatabaseEnv.h"
 #include "WorldPacket.h"
 #include "WorldSession.h"
@@ -31,7 +31,6 @@
 #include "Player.h"
 #include "Pet.h"
 #include "Unit.h"
-#include "Spell.h"
 #include "DynamicObject.h"
 #include "Group.h"
 #include "UpdateData.h"
@@ -322,8 +321,8 @@ void SpellCastTargets::write( ByteBuffer& data ) const
 
 Spell::Spell( Unit* caster, SpellEntry const *info, bool triggered, ObjectGuid originalCasterGUID, Spell** triggeringContainer )
 {
-    ASSERT( caster != NULL && info != NULL );
-    ASSERT( info == sSpellStore.LookupEntry( info->Id ) && "`info` must be pointer to sSpellStore element");
+    MANGOS_ASSERT( caster != NULL && info != NULL );
+    MANGOS_ASSERT( info == sSpellStore.LookupEntry( info->Id ) && "`info` must be pointer to sSpellStore element");
 
     if (info->SpellDifficultyId && caster->GetTypeId() != TYPEID_PLAYER && caster->IsInWorld() && caster->GetMap()->IsDungeon())
     {
@@ -2998,8 +2997,9 @@ void Spell::cast(bool skipCheck)
             // Faerie Fire (Feral)
             if (m_spellInfo->Id == 16857 && m_caster->m_form != FORM_CAT)
                 AddTriggeredSpell(60089);
-            else if (m_spellInfo->SpellIconID == 2852 && (m_spellInfo->AttributesEx & 0x28020)) // Berserk
-                AddPrecastSpell(58923); // Hit 3 targets at once with mangle in dire bear form
+            // Berserk (Bear Mangle part)
+            else if (m_spellInfo->Id == 50334)
+                AddTriggeredSpell(58923); 
             break;
         }
         case SPELLFAMILY_ROGUE:
