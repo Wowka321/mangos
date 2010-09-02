@@ -625,6 +625,8 @@ class MANGOS_DLL_SPEC Creature : public Unit
 
         void SetActiveObjectState(bool on);
 
+        void SetNeedNotify() { m_needNotify = true; }
+
         void SendAreaSpiritHealerQueryOpcode(Player *pl);
 
         void IncrementReceivedDamage(Unit* pAttacker, uint32 unDamage)
@@ -654,6 +656,7 @@ class MANGOS_DLL_SPEC Creature : public Unit
     protected:
         bool CreateFromProto(uint32 guidlow,uint32 Entry,uint32 team, const CreatureData *data = NULL);
         bool InitEntry(uint32 entry, uint32 team=ALLIANCE, const CreatureData* data=NULL);
+        void RelocationNotify();
         uint32 m_unPlayerDamageDone;
         uint32 m_unUnitDamageDone;
 
@@ -687,6 +690,7 @@ class MANGOS_DLL_SPEC Creature : public Unit
         bool m_regenHealth;
         bool m_AI_locked;
         bool m_isDeadByDefault;
+        bool m_needNotify;
 
         SpellSchoolMask m_meleeDamageSchoolMask;
         uint32 m_originalEntry;
